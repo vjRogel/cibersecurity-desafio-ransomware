@@ -1,3 +1,3 @@
-Desafio de projeto de criptografia / descriptografia de arquivos com python.
+Desafio de projeto de ransomware com python.
 
 Modificado para criptografar todos os arquivos de todas as extensões dentro da pasta.
